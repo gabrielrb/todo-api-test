@@ -1,5 +1,5 @@
 class Api::V1::ProjectsController < ApplicationController
-  before_action :set_project, only: [ :update ]
+  before_action :set_project, only: [ :update, :destroy]
 
   def index
     render json: Project.all
@@ -20,6 +20,11 @@ class Api::V1::ProjectsController < ApplicationController
     else
       render_error
     end
+  end
+
+  def destroy
+    @project.destroy
+    head :no_content
   end
 
   private
