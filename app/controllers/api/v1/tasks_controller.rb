@@ -1,18 +1,18 @@
 class Api::V1::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
-  before_action :set_project, only: [:index, :create]
+  before_action :set_project, only: :create
 
   def index
-    render json: @project.tasks
+    render json: { tasks: Task.all.order(id: :asc) }
   end
 
   def show
-    render json: @task
+    render json: { task: @task }
   end
 
   def update
     if @task.update(task_params)
-      render json: @task
+      render json: { task: @task }
     else
       render_error
     end
@@ -22,7 +22,7 @@ class Api::V1::TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.project = @project
     if @task.save
-      render json: @task
+      render json: { task: @task }, status: :created
     else
       render_error
     end
