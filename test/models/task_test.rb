@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def test_valid
+    assert tasks(:one).valid?
+    refute Task.new.valid?
+  end
 end
