@@ -5,12 +5,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     @project = projects(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get api_v1_projects_url, as: :json
     assert_response :success
   end
 
-  test "should create project" do
+  test 'should create project' do
     assert_difference('Project.count') do
       post api_v1_projects_url, params: { name: 'Learn Vue' }, as: :json
     end
@@ -19,20 +19,20 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "shouldn't create with invalid paramters" do
-    assert_no_difference "Project.count" do
+    assert_no_difference 'Project.count' do
       post api_v1_projects_url, params: { name: nil }, as: :json
     end
 
     assert_response :unprocessable_entity
   end
 
-  test "should show project" do
+  test 'should show project' do
     get api_v1_project_url(@project), as: :json
     assert_response :success
   end
 
-  test "should update project" do
-    assert_no_difference "Project.count" do
+  test 'should update project' do
+    assert_no_difference 'Project.count' do
       patch api_v1_project_url(@project), params: { name: 'Learn React' }, as: :json
     end
 
@@ -43,14 +43,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "shouldn't update with invalid paramters" do
-    assert_no_difference "Project.count" do
+    assert_no_difference 'Project.count' do
       patch api_v1_project_url(@project), params: { name: nil }, as: :json
     end
 
     assert_response :unprocessable_entity
   end
 
-  test "should destroy project" do
+  test 'should destroy project' do
     assert_difference('Project.count', -1) do
       delete api_v1_project_url(@project), as: :json
     end
