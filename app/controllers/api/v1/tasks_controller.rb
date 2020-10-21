@@ -22,7 +22,7 @@ class Api::V1::TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.project = @project
     if @task.save
-      render json: { task: @task }
+      render json: { task: @task }, status: :created
     else
       render_error
     end

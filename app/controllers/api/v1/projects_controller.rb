@@ -12,7 +12,7 @@ class Api::V1::ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      render json: @project
+      render json: @project, status: :created
     else
       render_error
     end
