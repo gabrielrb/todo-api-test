@@ -18,14 +18,36 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
+  test "shouldn't create with invalid paramters" do
+    assert_no_difference "Project.count" do
+      post api_v1_projects_url, params: { name: nil }, as: :json
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "should show project" do
     get api_v1_project_url(@project), as: :json
     assert_response :success
   end
 
   test "should update project" do
-    patch api_v1_project_url(@project), params: { project: { name: 'TODO API' } }, as: :json
+    assert_no_difference "Project.count" do
+      patch api_v1_project_url(@project), params: { name: 'Learn React' }, as: :json
+    end
+
     assert_response 200
+
+    @project.reload
+    assert_equal 'Learn React', @project.name
+  end
+
+  test "shouldn't update with invalid paramters" do
+    assert_no_difference "Project.count" do
+      patch api_v1_project_url(@project), params: { name: nil }, as: :json
+    end
+
+    assert_response :unprocessable_entity
   end
 
   test "should destroy project" do
